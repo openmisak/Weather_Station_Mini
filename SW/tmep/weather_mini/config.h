@@ -1,4 +1,9 @@
 // vypln tvou domenu cidla, kterou sis zaregistroval na tmep.cz
-String serverName = "http://TVADOMENA.tmep.cz/index.php?";
+String serverName = "http://4t6jv7-ne224p.tmep.cz/index.php?";
 // vypln tve GUID cidla
-String GUID = "GUID";
+String GUID = "tempV";
+
+//SSID
+String SSID = "Mango";
+//wifi password
+String password "test";
