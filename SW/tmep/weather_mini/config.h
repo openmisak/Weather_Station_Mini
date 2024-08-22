@@ -2,8 +2,3 @@
 String serverName = "http://4t6jv7-ne224p.tmep.cz/index.php?";
 // vypln tve GUID cidla
 String GUID = "tempV";
-
-//SSID
-String SSID = "Mango";
-//wifi password
-String password "test";
