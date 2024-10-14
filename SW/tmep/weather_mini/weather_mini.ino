@@ -8,6 +8,9 @@
  * Web:laskakit.cz
  * Board: ESP32-C3 Dev Module
  * 
+ *
+ * Změna konfigurace, funguje s tmep.cz, bylo potřeba správně nastavit parametry modulu pro přenos 
+ *
  */
 
 // připojení knihoven
@@ -20,7 +23,7 @@
 #include <Adafruit_BME280.h>      // BME280 by Adafruit 
 #include <WiFiManager.h>          // WiFi manager by tzapu https://github.com/tzapu/WiFiManager
 
-#define BME280_ADDRESS (0x77)     // Default on LaskaKit module
+#define BME280_ADDRESS (0x76)     // STARA DESKA 0x76, NOVA DESKA 0x77 !!!!!! Default on LaskaKit module
 #define SLEEP_SEC 15*60           // Measurement interval (seconds)
 #define ADC_PIN 0                 // ADC pin on LaskaKit Meteo mini
 #define deviderRatio 1.7693877551 // Voltage devider ratio on ADC pin 1M + 1.3MOhm
@@ -78,7 +81,7 @@ void GoToSleep(){
 // pripojeni k WiFi | WiFi Connection
 void WiFiConnection(){
     // Probudit WiFi | Wake up WiFi Modem
-  WiFi.mode( WIFI_STA);
+  WiFi.mode(WIFI_STA);
 
  //WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
     WiFiManager wm;
@@ -127,7 +130,7 @@ void readBat(){
 
 void setup() {
   // Hned vypneme WiFi | disable WiFi, coming from DeepSleep, as we do not need it right away
-  WiFi.mode( WIFI_OFF );
+  WiFi.mode(WIFI_OFF);
   delay( 1 );
   
 
