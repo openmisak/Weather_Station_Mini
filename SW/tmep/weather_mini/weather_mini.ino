@@ -9,7 +9,7 @@
  * Board: ESP32-C3 Dev Module
  * 
  *
- * Změna konfigurace, funguje s tmep.cz, bylo potřeba správně nastavit parametry modulu pro přenos 
+ * TEIM: Změna konfigurace, funguje s tmep.cz, bylo potřeba správně nastavit parametry modulu pro přenos 
  *
  */
 
@@ -38,6 +38,9 @@ float temperature;
 float pressure;
 float humidity;
 float bat_voltage;
+ 
+// Float for Reference Voltage
+float refVoltage = 3.3;
 
 void postData(){
 
@@ -70,7 +73,7 @@ void postData(){
 }
 
 void GoToSleep(){
-    delay(1);
+  delay(1);
   // ESP Deep Sleep 
   digitalWrite(PIN_ON, LOW);   // Turn off the uSUP power
   Serial.println("ESP in sleep mode");
@@ -80,10 +83,10 @@ void GoToSleep(){
 
 // pripojeni k WiFi | WiFi Connection
 void WiFiConnection(){
-    // Probudit WiFi | Wake up WiFi Modem
+  // Probudit WiFi | Wake up WiFi Modem
   WiFi.mode(WIFI_STA);
 
- //WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
+  //WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
     WiFiManager wm;
 
     // reset settings - wipe stored credentials for testing
@@ -123,9 +126,8 @@ void readBME(){
 
 // Měření napětí baterie | Battery voltage measurement
 void readBat(){
-  bat_voltage = analogReadMilliVolts(ADC_PIN) * deviderRatio / 1000;
-  Serial.print("Battery voltage " + String(bat_voltage) + "V");
-
+  bat_voltage = ((analogReadMilliVolts(ADC_PIN) * deviderRatio) / 1000) * refVoltage;
+  Serial.println("Battery voltage " + String(bat_voltage) + "V");
 }
 
 void setup() {
@@ -158,6 +160,7 @@ void setup() {
   delay(10);
 
   readBME();
+
   readBat();     
   
   // Pripojeni k WiFi | Connect to WiFi
