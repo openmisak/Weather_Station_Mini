@@ -38,6 +38,7 @@ float temperature;
 float pressure;
 float humidity;
 float bat_voltage;
+int32_t rssi;
  
 // Float for Reference Voltage
 float refVoltage = 3.3;
@@ -46,9 +47,11 @@ void postData(){
 
   if(WiFi.status()== WL_CONNECTED) {
     HTTPClient http;
+
+    rssi = WiFi.RSSI();
       
     //GUID, nasleduje hodnota teploty, pro vlhkost "humV", pro CO2 "CO2", pro napeti baterie "v"
-    String serverPath = serverName + "" + GUID + "=" + temperature + "&humV=" + humidity + "&pressV=" + pressure + "&v=" + bat_voltage; 
+    String serverPath = serverName + "" + GUID + "=" + temperature + "&humV=" + humidity + "&pressV=" + pressure + "&v=" + bat_voltage + "&rssi=" + rssi; 
       
     // zacatek http spojeni
     http.begin(serverPath.c_str());
